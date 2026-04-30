@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Xueting Han — Project Management & Data Analytics</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0f1f3d;
+    --gold: #c9a84c;
+    --cream: #f8f4ee;
+    --light: #ede8df;
+    --gray: #6b7280;
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--navy);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 4rem;
+    background: rgba(248,244,238,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--navy);
+    text-decoration: none;
+  }
+
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--navy);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 4rem 4rem 6rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-tag {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 5vw, 5.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--navy);
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-subtitle {
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    color: var(--gray);
+    line-height: 1.7;
+    max-width: 380px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+
+  .hero-cta {
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.9rem 2rem;
+    background: var(--navy);
+    color: var(--white);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-primary:hover { background: var(--gold); transform: translateY(-2px); }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.9rem 2rem;
+    border: 1px solid var(--navy);
+    color: var(--navy);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { background: var(--navy); color: var(--white); }
+
+  .hero-right {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero-bg-block {
+    position: absolute;
+    inset: 0;
+    background: var(--navy);
+    clip-path: polygon(8% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+
+  .hero-stats {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    padding: 4rem;
+    opacity: 0;
+    animation: fadeIn 1s 1s forwards;
+  }
+
+  .stat-item { text-align: center; }
+  .stat-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1;
+  }
+  .stat-number span { color: var(--gold); }
+  .stat-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-top: 0.4rem;
+  }
+
+  .stat-divider {
+    width: 1px;
+    height: 40px;
+    background: rgba(255,255,255,0.15);
+    margin: 0 auto;
+  }
+
+  /* SECTIONS */
+  section { padding: 6rem 6rem; }
+
+  .section-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 0.8rem;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--navy);
+    margin-bottom: 3rem;
+  }
+
+  /* ABOUT */
+  .about { background: var(--white); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--gray);
+    margin-bottom: 1.2rem;
+  }
+
+  .about-text p strong { color: var(--navy); font-weight: 500; }
+
+  .about-details { display: flex; flex-direction: column; gap: 1.5rem; }
+  .detail-item {
+    padding: 1.5rem;
+    border-left: 3px solid var(--gold);
+    background: var(--cream);
+  }
+  .detail-item h4 {
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.4rem;
+  }
+  .detail-item p { font-size: 0.95rem; color: var(--navy); line-height: 1.5; }
+
+  /* EXPERIENCE */
+  .experience { background: var(--cream); }
+  .exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+
+  .exp-card {
+    padding: 2rem;
+    background: var(--white);
+    border-top: 3px solid transparent;
+    transition: border-color 0.3s, transform 0.3s;
+    cursor: default;
+  }
+  .exp-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+
+  .exp-meta {
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+  }
+
+  .exp-company {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 0.3rem;
+  }
+
+  .exp-role {
+    font-size: 0.88rem;
+    color: var(--gray);
+    margin-bottom: 1rem;
+  }
+
+  .exp-points { list-style: none; }
+  .exp-points li {
+    font-size: 0.88rem;
+    color: var(--gray);
+    line-height: 1.6;
+    padding-left: 1rem;
+    position: relative;
+    margin-bottom: 0.4rem;
+  }
+  .exp-points li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+  }
+
+  /* SKILLS */
+  .skills { background: var(--navy); }
+  .skills .section-title { color: var(--white); }
+  .skills .section-label { color: var(--gold); }
+
+  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+
+  .skill-group {
+    padding: 2rem;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: border-color 0.3s;
+  }
+  .skill-group:hover { border-color: var(--gold); }
+
+  .skill-group h3 {
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.2rem;
+  }
+
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .skill-tag {
+    padding: 0.3rem 0.8rem;
+    background: rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.7);
+    font-size: 0.8rem;
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: all 0.2s;
+  }
+  .skill-tag:hover { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+
+  /* EDUCATION */
+  .education { background: var(--white); }
+  .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+
+  .edu-card {
+    padding: 2.5rem;
+    background: var(--cream);
+    position: relative;
+    overflow: hidden;
+  }
+  .edu-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--gold);
+  }
+
+  .edu-year {
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+  }
+
+  .edu-school {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 0.4rem;
+  }
+
+  .edu-degree {
+    font-size: 0.9rem;
+    color: var(--gray);
+    margin-bottom: 1rem;
+  }
+
+  .edu-courses {
+    font-size: 0.82rem;
+    color: var(--gray);
+    line-height: 1.7;
+  }
+
+  /* CONTACT */
+  .contact {
+    background: var(--light);
+    text-align: center;
+    padding: 6rem 4rem;
+  }
+
+  .contact-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-weight: 300;
+    color: var(--navy);
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-title em { font-style: italic; color: var(--gold); }
+
+  .contact-sub {
+    font-size: 1rem;
+    color: var(--gray);
+    margin-bottom: 2.5rem;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.9rem 2rem;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: all 0.2s;
+  }
+
+  .contact-link.primary {
+    background: var(--navy);
+    color: var(--white);
+  }
+  .contact-link.primary:hover { background: var(--gold); }
+
+  .contact-link.secondary {
+    border: 1px solid var(--navy);
+    color: var(--navy);
+  }
+  .contact-link.secondary:hover { background: var(--navy); color: var(--white); }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy);
+    padding: 2rem 6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer p {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.4);
+  }
+
+  footer .footer-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">XH</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-tag">Project Manager · Data Analyst · Northwestern MPM 2026</p>
+    <h1 class="hero-name">Xueting<br><em>Han</em><br>韩雪婷</h1>
+    <p class="hero-subtitle">Bridging data intelligence and project delivery across finance, technology, and digital innovation — based in Shanghai.</p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn-primary">Get in Touch</a>
+      <a href="#experience" class="btn-secondary">View Work</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-bg-block"></div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-number">4<span>+</span></div>
+        <div class="stat-label">Internships</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-number">3<span>+</span></div>
+        <div class="stat-label">Research Projects</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-number">2<span></span></div>
+        <div class="stat-label">Degrees</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-number">2<span></span></div>
+        <div class="stat-label">Languages</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="reveal">
+    <p class="section-label">About Me</p>
+    <h2 class="section-title">Analytical mind,<br>project-driven results.</h2>
+  </div>
+  <div class="about-grid reveal">
+    <div class="about-text">
+      <p>I am a <strong>Master of Project Management candidate at Northwestern University</strong> (graduating December 2026), with a B.S. in Information Systems from Xi'an Jiaotong-Liverpool University.</p>
+      <p>My background spans <strong>quantitative finance, data analytics, and cross-functional project coordination</strong> across leading institutions including Huatai Securities, Agricultural Bank of China, and AIA Holdings.</p>
+      <p>I am passionate about applying <strong>data-driven thinking to real-world project challenges</strong> — whether building predictive models, coordinating stakeholders, or delivering measurable business outcomes on time and on budget.</p>
+    </div>
+    <div class="about-details">
+      <div class="detail-item">
+        <h4>Location</h4>
+        <p>Shanghai, China · Chicago, USA</p>
+      </div>
+      <div class="detail-item">
+        <h4>Target Role</h4>
+        <p>Project Manager · PMO · Digital Solutions</p>
+      </div>
+      <div class="detail-item">
+        <h4>Availability</h4>
+        <p>February 2027 (Full-time)</p>
+      </div>
+      <div class="detail-item">
+        <h4>Languages</h4>
+        <p>Mandarin (Native) · English (Proficient)</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience" id="experience">
+  <div class="reveal">
+    <p class="section-label">Experience</p>
+    <h2 class="section-title">Where I've worked<br>and what I've built.</h2>
+  </div>
+  <div class="exp-grid">
+    <div class="exp-card reveal">
+      <div class="exp-meta">Aug – Sep 2024 · Suzhou</div>
+      <div class="exp-company">Huatai Securities</div>
+      <div class="exp-role">Financial Advisor Intern</div>
+      <ul class="exp-points">
+        <li>Analyzed financial product data; produced monthly trend reports for investment advisors</li>
+        <li>Tracked user behavior data and proposed UX optimization recommendations</li>
+      </ul>
+    </div>
+    <div class="exp-card reveal">
+      <div class="exp-meta">Jun – Aug 2023 · Xuzhou</div>
+      <div class="exp-company">Huatai Securities</div>
+      <div class="exp-role">Quantitative Analyst Intern</div>
+      <ul class="exp-points">
+        <li>Used Bloomberg, Wind & Excel VBA for portfolio risk assessment</li>
+        <li>Applied CAPM, DCF & Monte Carlo simulation for equity valuation</li>
+      </ul>
+    </div>
+    <div class="exp-card reveal">
+      <div class="exp-meta">Jun – Sep 2022 · Xuzhou</div>
+      <div class="exp-company">Agricultural Bank of China</div>
+      <div class="exp-role">Data Analyst Intern</div>
+      <ul class="exp-points">
+        <li>Built Power BI dashboards from customer survey data</li>
+        <li>Produced pricing & profitability reports informing product strategy</li>
+      </ul>
+    </div>
+    <div class="exp-card reveal">
+      <div class="exp-meta">Jan – Mar 2022 · Xuzhou</div>
+      <div class="exp-company">AIA Holdings</div>
+      <div class="exp-role">Marketing Analytics Intern</div>
+      <ul class="exp-points">
+        <li>Built Python models for customer segmentation & churn prediction</li>
+        <li>Contributed market analysis reports for new product development</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills" id="skills">
+  <div class="reveal">
+    <p class="section-label">Skills</p>
+    <h2 class="section-title">Tools & capabilities<br>I bring to every project.</h2>
+  </div>
+  <div class="skills-grid reveal">
+    <div class="skill-group">
+      <h3>Project Management</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">WBS</span>
+        <span class="skill-tag">Gantt Charts</span>
+        <span class="skill-tag">Risk Management</span>
+        <span class="skill-tag">Stakeholder Mgmt</span>
+        <span class="skill-tag">Milestone Tracking</span>
+        <span class="skill-tag">Process Improvement</span>
+        <span class="skill-tag">Change Management</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h3>Data & Analytics</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">R</span>
+        <span class="skill-tag">MATLAB</span>
+        <span class="skill-tag">SQL / MySQL</span>
+        <span class="skill-tag">Excel (Advanced)</span>
+        <span class="skill-tag">Power BI</span>
+        <span class="skill-tag">Tableau</span>
+        <span class="skill-tag">Bloomberg</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h3>Machine Learning</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">TensorFlow</span>
+        <span class="skill-tag">PyTorch</span>
+        <span class="skill-tag">scikit-learn</span>
+        <span class="skill-tag">LSTM / RNN</span>
+        <span class="skill-tag">CNN</span>
+        <span class="skill-tag">Customer Segmentation</span>
+        <span class="skill-tag">Time-Series Forecasting</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="education" id="education">
+  <div class="reveal">
+    <p class="section-label">Education</p>
+    <h2 class="section-title">Academic foundation<br>for real-world impact.</h2>
+  </div>
+  <div class="edu-grid reveal">
+    <div class="edu-card">
+      <div class="edu-year">Sep 2025 – Dec 2026</div>
+      <div class="edu-school">Northwestern University</div>
+      <div class="edu-degree">Master of Project Management (MPM) · Chicago, USA</div>
+      <div class="edu-courses">Project Management Fundamentals · Financial & Managerial Accounting · Corporate Finance · Project Communications · Risk Management</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-year">Sep 2021 – Jun 2025</div>
+      <div class="edu-school">Xi'an Jiaotong-Liverpool University</div>
+      <div class="edu-degree">B.S. Information Systems & Information Management · Suzhou, China</div>
+      <div class="edu-courses">Artificial Intelligence · Software Engineering · Big Data Analytics · Business Intelligence · Securities Markets · Multivariable Calculus</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <h2 class="contact-title reveal">Let's work<br><em>together.</em></h2>
+  <p class="contact-sub reveal">Open to Project Manager, PMO, and Digital Solutions roles in Shanghai · Available February 2027</p>
+  <div class="contact-links reveal">
+    <a href="mailto:13905205936@163.com" class="contact-link primary">✉ Email Me</a>
+    <a href="https://www.linkedin.com/in/韩雪婷-950bb9382/" class="contact-link secondary">LinkedIn</a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Xueting Han. All rights reserved.</p>
+  <span class="footer-name">韩雪婷</span>
+  <p>Shanghai · Chicago</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 100);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
